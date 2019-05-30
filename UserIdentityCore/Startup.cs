@@ -52,7 +52,7 @@ namespace UserIdentityCore
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext context
-            , UserManager<CustomUser> userManager, RoleManager<CustomRole> roleManager)
+           , RoleManager<CustomRole> roleManager, UserManager<CustomUser> userManager)
         {
             if (env.IsDevelopment())
             {
