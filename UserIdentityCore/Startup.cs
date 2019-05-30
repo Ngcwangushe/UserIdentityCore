@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using UserIdentityCore.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UserIdentityCore.Models;
 
 namespace UserIdentityCore
 {
@@ -38,15 +39,20 @@ namespace UserIdentityCore
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+
+            services.AddIdentity<CustomUser, CustomRole>(
+                    options => options.Stores.MaxLengthForKeys = 128)
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddDefaultTokenProviders();
+               
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext context
+            , UserManager<CustomUser> userManager, RoleManager<CustomRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -72,6 +78,7 @@ namespace UserIdentityCore
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            DummyData.Initialize(context, userManager, roleManager).Wait();
         }
     }
 }
