@@ -35,12 +35,12 @@ namespace UserIdentityCore.Data
                 await roleManager.CreateAsync(new CustomRole(role2, desc2, DateTime.Now));
             }
 
-            if (await userManager.FindByNameAsync("aa@aa.aa") == null)
+            if (await userManager.FindByNameAsync("saider@condor.connect") == null)
             {
                 var user = new CustomUser
                 {
-                    UserName = "aa@aa.aa",
-                    Email = "aa@aa.aa",
+                    UserName = "saider@condor.connect",
+                    Email = "saider@condor.connect",
                     Employee = new Employee
                     {
                         FirstName = "Adam",
@@ -48,11 +48,11 @@ namespace UserIdentityCore.Data
                         PhoneNumber = "6902341234",
                         Address = new Address
                         {
-                            Street = "Fake St",
-                            City = "Vancouver",
-                            Province = "BC",
-                            PostalCode = "V5U K8I",
-                            Country = "Canada"
+                            Street = "Rala Rala St",
+                            City = "Strand",
+                            Province = "Western Cape",
+                            PostalCode = "7140",
+                            Country = "South Africa"
                         }
                     },
 
